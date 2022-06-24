@@ -69,6 +69,23 @@ app.get('/profile/:id', (req, res) => {
     }
 })
 
+//Increase rank by images
+app.put('/image', (req, res) => {
+    const { id } = req.body
+    let found = false
+
+    database.user.forEach(user => {
+        if (user.id === id){
+            found = true
+            user.entries++
+            return res.json(user.entries)
+        }
+    })
+    if (!found){
+        res.status(404).json('not found')        
+    }
+})
+
 app.listen(3000, () => {
     console.log('App is running on port 3000')
 }) 
