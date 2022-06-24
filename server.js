@@ -26,7 +26,7 @@ const database = {
 }
 
 app.get('/', (req, res) => {
-    res.send('This is working')
+    res.send(database.user)
 })
 
 //SignIn
@@ -39,7 +39,19 @@ app.post('/signin', (req, res) => {
     }
 })
 
-
+//Register
+app.post('/register', (req, res) => {
+    const { name, email, password } = req.body
+    database.user.push({
+        id: "125",
+        name: name,
+        email: email,
+        password: password,
+        entries: 0,
+        joined: new Date()
+    })
+    res.json(database.user[database.user.length-1])
+})
 
 app.listen(3000, () => {
     console.log('App is running on port 3000')
