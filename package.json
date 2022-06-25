@@ -10,6 +10,7 @@
   "author": "Abdulmuqsit Adam",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.20.0",
     "express": "^4.18.1"
   },
