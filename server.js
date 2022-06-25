@@ -1,16 +1,20 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt-nodejs')
+const cors = require('cors')
 
 const app =  express()
 
 app.use(bodyParser.json())
+app.use(cors())
+
 const database = {
     user: [
         {
             id: "123",
             name: "Muqsit",
             email: "muqsit@gmail.com",
+            password: 'muqsit',
             entries: 0,
             joined: new Date()
         },
@@ -18,6 +22,7 @@ const database = {
             id: "124",
             name: "Adam",
             email: "adam@gmail.com",
+            password: 'adam',
             entries: 0,
             joined: new Date()
         }
