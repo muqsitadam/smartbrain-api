@@ -44,16 +44,17 @@ app.get('/', (req, res) => {
 app.post('/signin', (req, res) => {
 
     // Load hash from your password DB.
-    bcrypt.compare("nawal", '$2a$10$EkTTBpGr/FQdcXZwHV060u3cfGvEk23If/tSmHWitlOqgzZH/5DDi', function(err, res) {
-        console.log('first guess', res)
-    });
-    bcrypt.compare("veggies", '$2a$10$EkTTBpGr/FQdcXZwHV060u3cfGvEk23If/tSmHWitlOqgzZH/5DDi', function(err, res) {
-        console.log('second guess', res)
-    });
+    // bcrypt.compare("nawal", '$2a$10$EkTTBpGr/FQdcXZwHV060u3cfGvEk23If/tSmHWitlOqgzZH/5DDi', function(err, res) {
+    //     console.log('first guess', res)
+    // });
+    // bcrypt.compare("veggies", '$2a$10$EkTTBpGr/FQdcXZwHV060u3cfGvEk23If/tSmHWitlOqgzZH/5DDi', function(err, res) {
+    //     console.log('second guess', res)
+    // });
 
     if(req.body.email === database.user[0].email && 
        req.body.password === database.user[0].password){
-        res.json('success')
+        res.json(database.user[0]);
+        // res.json('success')
     }else{
         res.status(400).json('Wrong email or password')
     }
@@ -71,7 +72,6 @@ app.post('/register', (req, res) => {
         id: "125",
         name: name,
         email: email,
-        password: password,
         entries: 0,
         joined: new Date()
     })
