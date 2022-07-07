@@ -2,6 +2,23 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt-nodejs')
 const cors = require('cors')
+const knex = require('knex')
+
+
+const db  = knex({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      port : 5432,
+      user : 'postgres',
+      password : 'wordpass',
+      database : 'smartbrain'
+    }
+});
+
+db.select('*').from('users').then(data => {
+    console.log(data)
+})
 
 const app =  express()
 
@@ -42,15 +59,6 @@ app.get('/', (req, res) => {
 
 //SignIn
 app.post('/signin', (req, res) => {
-
-    // Load hash from your password DB.
-    // bcrypt.compare("nawal", '$2a$10$EkTTBpGr/FQdcXZwHV060u3cfGvEk23If/tSmHWitlOqgzZH/5DDi', function(err, res) {
-    //     console.log('first guess', res)
-    // });
-    // bcrypt.compare("veggies", '$2a$10$EkTTBpGr/FQdcXZwHV060u3cfGvEk23If/tSmHWitlOqgzZH/5DDi', function(err, res) {
-    //     console.log('second guess', res)
-    // });
-
     if(req.body.email === database.user[0].email && 
        req.body.password === database.user[0].password){
         res.json(database.user[0]);
@@ -63,18 +71,11 @@ app.post('/signin', (req, res) => {
 //Register
 app.post('/register', (req, res) => {
     const { name, email, password } = req.body
-
-    // bcrypt.hash(password, null, null, function(err, hash) {
-    //     console.log(hash)
-    // });
-
-    database.user.push({
-        id: "125",
+    db('users').insert({
         name: name,
         email: email,
-        entries: 0,
         joined: new Date()
-    })
+    }).then(console.log)
     res.json(database.user[database.user.length-1])
 })
 
