@@ -71,45 +71,38 @@ app.post('/signin', (req, res) => {
 //Register
 app.post('/register', (req, res) => {
     const { name, email, password } = req.body
-    db('users').insert({
+    db('users')
+    .returning('*')
+    .insert({
         name: name,
         email: email,
         joined: new Date()
-    }).then(console.log)
-    res.json(database.user[database.user.length-1])
+    })
+    .then(user => {
+        res.json(user[0])
+    })
+    .catch(err => res.status(400).json('Email already exists'))
 })
 
 //Profile ID
 app.get('/profile/:id', (req, res) => {
     const { id } = req.params
-    let found = false
-
-    database.user.forEach(user => {
-        if (user.id === id){
-            found = true
-            return res.send(user)
+    db.select('*').from('users').where({id})
+    .then(user => {
+        if(user.length){
+            res.json(user)
+        }else{
+            res.status(400).json('Not found')
         }
     })
-    if (!found){
-        res.status(404).json('not found')        
-    }
+    .catch(err => res.status(400).json('Error getting users'))
 })
 
 //Increase rank by images
 app.put('/image', (req, res) => {
     const { id } = req.body
-    let found = false
-
-    database.user.forEach(user => {
-        if (user.id === id){
-            found = true
-            user.entries++
-            return res.json(user.entries)
-        }
-    })
-    if (!found){
-        res.status(404).json('not found')        
-    }
+    db.where('id', '=', id)
+    .increment('entries', 1)
 })
 
 app.listen(3000, () => {
