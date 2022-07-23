@@ -45,6 +45,10 @@ app.get('/profile/:id', (req, res) => {profile.handleProfile(req, res, db)})
 //Increase rank by images
 app.put('/image', (req, res) => {image.handleImage(req, res, db)})
 
+//Moving the apikey to the backend
+app.post('/imageurl', (req, res) => {image.handleApiCall(req, res)})
+
+
 app.listen(3000, () => {
     console.log('App is running on port 3000')
 }) 
