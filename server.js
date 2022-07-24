@@ -9,16 +9,19 @@ const signin = require('./controllers/signin')
 const profile = require('./controllers/profile')
 const image = require('./controllers/image')
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 
 const db  = knex({
     client: 'pg',
     connection: {
-      host : 'postgresql-angular-61102',
-      port : 5432,
-      user : 'postgres',
-      password : 'wordpass',
-      database : 'smartbrain'
+      connectionString : process.env.DATABASE_URL,
+      ssl : true
+
+      // host : 'postgresql-angular-61102',
+      // port : 5432,
+      // user : 'postgres',
+      // password : 'wordpass',
+      // database : 'smartbrain'
     }
 });
 const app =  express()
