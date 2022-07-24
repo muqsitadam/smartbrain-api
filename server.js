@@ -9,10 +9,12 @@ const signin = require('./controllers/signin')
 const profile = require('./controllers/profile')
 const image = require('./controllers/image')
 
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
+
 const db  = knex({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
+      host : 'postgresql-angular-61102',
       port : 5432,
       user : 'postgres',
       password : 'wordpass',
@@ -40,15 +42,6 @@ app.put('/image', (req, res) => {image.handleImage(req, res, db)})
 
 //Moving the apikey to the backend
 app.post('/imageurl', (req, res) => {image.handleApiCall(req, res)})
-
-
-// let port = process.env.PORT;
-// if (port == null || port == "") {
-//   port = 3000;
-// }
-// app.listen(port => {
-//     console.log(`App is running on port ${port}`)
-// })
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`App is running on port ${process.env.PORT}`)
