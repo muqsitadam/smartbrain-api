@@ -22,4 +22,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-./bash.exe.stackdumpnode_modules
+
+
+
+
+
+./bash.exe.stackdump
