@@ -19,11 +19,6 @@ const db  = knex({
       database : 'smartbrain'
     }
 });
-
-// db.select('*').from('users').then(data => {
-//     // console.log(data)
-// })
-
 const app =  express()
 
 app.use(bodyParser.json())
@@ -53,4 +48,4 @@ if (port == null || port == "") {
 }
 app.listen(port => {
     console.log(`App is running on port ${port}`)
-}) 
+})
