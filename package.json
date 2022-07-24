@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "building a server for the smartbrain frontend",
   "main": "script.js",
+  "engines": {
+    "node": "16.15.0"
+  },
   "scripts": {
     "start": "node server.js",
     "start:dev": "nodemon server.js",
@@ -21,8 +24,5 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.18"
-  },
-  "engines": {
-    "node": "16.15.0"
   }
 }
